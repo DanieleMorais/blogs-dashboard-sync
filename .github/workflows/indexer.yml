@@ -1,0 +1,28 @@
+name: Backfill indexador (aos poucos)
+on:
+  schedule:
+    - cron: "30 9 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - env:
+          G_CLIENT_ID: ${{ secrets.G_CLIENT_ID }}
+          G_CLIENT_SECRET: ${{ secrets.G_CLIENT_SECRET }}
+          G_REFRESH_TOTAL: ${{ secrets.G_REFRESH_TOTAL }}
+          BATCH: "90"
+        run: node index-backfill.js
+      - name: salva progresso
+        run: |
+          git config user.name "Daniele Morais"
+          git config user.email "fadamadrinhadm@gmail.com"
+          git add indexed.json
+          git commit -m "chore: progresso indexador [skip ci]" || echo "nada a commitar"
+          git push || echo "push falhou"
