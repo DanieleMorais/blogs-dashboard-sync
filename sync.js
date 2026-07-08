@@ -15,6 +15,7 @@ const BLOGS=[
 {name:"O Mundo da IA",domain:"omundodaia.blogspot.com",url:"https://omundodaia.blogspot.com/",sc:"https://omundodaia.blogspot.com/",ga4:"544354894",mid:"G-QF04SZVHS5",nicho:"Inteligência Artificial"},
 {name:"O Mundo dos Animes",domain:"ouniversoanimes.blogspot.com",url:"https://ouniversoanimes.blogspot.com/",sc:"https://ouniversoanimes.blogspot.com/",ga4:"544476224",mid:"G-TGRD6F7XHK",nicho:"Animes (PT)"},
 {name:"We Love Anime",domain:"weloveanimes1.blogspot.com",url:"https://weloveanimes1.blogspot.com/",sc:"https://weloveanimes1.blogspot.com/",ga4:"544471190",mid:"G-FNPQ67ZP00",nicho:"Anime (EN)"},
+{name:"Arcane",domain:"arcane.agenciafadamadrinha.com",url:"https://arcane.agenciafadamadrinha.com/",sc:"https://arcane.agenciafadamadrinha.com/",ga4:"544632685",mid:"G-DVCPN4QKFE",nicho:"SaaS / Pesquisa de Produtos",fixedIdx:9,fixedSeo:92},
 ];
 (async()=>{
 const gaTok=await saToken(GA_SA,"https://www.googleapis.com/auth/analytics.readonly");
@@ -23,8 +24,8 @@ const fsTok=await saToken(FB_SA,"https://www.googleapis.com/auth/datastore");
 if(!fsTok){console.error("firestore token fail");process.exit(1);}
 const nowISO=new Date().toISOString();let ok=0;
 for(const b of BLOGS){
-const g=await ga4(gaTok,b.ga4),s=await sc(scTok,b.sc),idx=await posts(b.url);
-const seo_score=Math.min(98,45+Math.round(idx*0.45)+(s.position&&s.position<15?8:0));
+const g=await ga4(gaTok,b.ga4),s=await sc(scTok,b.sc),idx=b.fixedIdx??await posts(b.url);
+const seo_score=b.fixedSeo??Math.min(98,45+Math.round(idx*0.45)+(s.position&&s.position<15?8:0));
 const id=b.domain.replace(/[^a-z0-9]+/gi,"-").toLowerCase();
 const doc=toDoc({name:b.name,domain:b.domain,url:b.url,nome_cliente:b.name,client_id:"",nicho:b.nicho,status:"active",seo_score,visits:g.views,whatsapp_clicks:0,ga4PropertyId:b.ga4,measurementId:b.mid,searchConsoleUrl:b.sc,indexedPages:idx,metrics:{ga4Users:g.users,ga4Views:g.views,ga4Sessions:g.sessions,scClicks:s.clicks,scImpressions:s.impressions,scPosition:s.position,indexedPages:idx,period:`${dates.s}..${dates.e}`,updatedAt:nowISO},source:"blogs-automaticos",updated_at:nowISO});
 // PATCH sem sobrescrever created_at: usa updateMask nos campos enviados
