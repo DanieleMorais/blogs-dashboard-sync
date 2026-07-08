@@ -1,0 +1,26 @@
+name: Submit Sitemap
+on:
+  workflow_dispatch:
+    inputs:
+      site:
+        description: "Site URL (Search Console property)"
+        required: false
+        default: "https://visionscoreai.agenciafadamadrinha.com/"
+      sitemap:
+        description: "Sitemap URL"
+        required: false
+        default: "https://visionscoreai.agenciafadamadrinha.com/sitemap.xml"
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Submit sitemap to Search Console
+        env:
+          G_CLIENT_ID: ${{ secrets.G_CLIENT_ID }}
+          G_CLIENT_SECRET: ${{ secrets.G_CLIENT_SECRET }}
+          G_REFRESH_TOTAL: ${{ secrets.G_REFRESH_TOTAL }}
+        run: node submit-sitemap.js "${{ github.event.inputs.site }}" "${{ github.event.inputs.sitemap }}"
