@@ -16,7 +16,7 @@ const BLOGS=[
 {name:"O Mundo dos Animes",domain:"ouniversoanimes.blogspot.com",url:"https://ouniversoanimes.blogspot.com/",sc:"https://ouniversoanimes.blogspot.com/",ga4:"544476224",mid:"G-TGRD6F7XHK",nicho:"Animes (PT)"},
 {name:"We Love Anime",domain:"weloveanimes1.blogspot.com",url:"https://weloveanimes1.blogspot.com/",sc:"https://weloveanimes1.blogspot.com/",ga4:"544471190",mid:"G-FNPQ67ZP00",nicho:"Anime (EN)"},
 {name:"Arcane",domain:"arcane.agenciafadamadrinha.com",url:"https://arcane.agenciafadamadrinha.com/",sc:"https://arcane.agenciafadamadrinha.com/",ga4:"544632685",mid:"G-DVCPN4QKFE",nicho:"SaaS / Pesquisa de Produtos",fixedIdx:9,fixedSeo:92},
-{name:"VisionScore AI",domain:"visionscoreai.agenciafadamadrinha.com",url:"https://visionscoreai.agenciafadamadrinha.com/",sc:"https://visionscoreai.agenciafadamadrinha.com/",ga4:"544659124",mid:"G-92WW3LMQ3D",nicho:"IA Preditiva de Tráfego",fixedIdx:1,fixedSeo:60},
+{name:"VisionScore AI",domain:"visionscoreai.agenciafadamadrinha.com",url:"https://visionscoreai.agenciafadamadrinha.com/",sc:"https://visionscoreai.agenciafadamadrinha.com/",ga4:"544659124",mid:"G-92WW3LMQ3D",nicho:"IA Preditiva de Tráfego",fixedIdx:1,fixedSeo:92},
 ];
 (async()=>{
 const gaTok=await saToken(GA_SA,"https://www.googleapis.com/auth/analytics.readonly");
