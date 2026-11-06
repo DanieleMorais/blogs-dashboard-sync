@@ -4,10 +4,10 @@ const CID=process.env.G_CLIENT_ID, CS=process.env.G_CLIENT_SECRET, RT=process.en
 const BATCH=parseInt(process.env.BATCH||"90",10);
 const STATE="indexed.json";
 const BLOGS=[
-"https://ouniversoanimes.blogspot.com/",
-"https://weloveanimes1.blogspot.com/",
+"https://universodosanimes.agentebusiness.com/",
+"https://weloveanime.agentebusiness.com/",
 "https://www.dinheironodiaadia.com/",
-"https://omundodaia.blogspot.com/",
+"https://omundodaia.agentebusiness.com/",
 ];
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 async function allUrls(site){let urls=[],start=1;for(let p=0;p<8;p++){try{const d=await(await fetch(`${site}feeds/posts/default?alt=json&start-index=${start}&max-results=150`,{headers:{"User-Agent":"Mozilla/5.0"}})).json();const e=(d.feed&&d.feed.entry)||[];if(!e.length)break;e.forEach(x=>{const l=(x.link||[]).find(y=>y.rel==="alternate");if(l)urls.push(l.href);});if(e.length<150)break;start+=150;}catch{break;}}return urls;}
